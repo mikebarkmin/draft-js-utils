@@ -349,11 +349,15 @@ class MarkupGenerator {
       return content;
     }
 
-    const {element = 'span', attributes, style} = renderConfig;
+    const {element = 'span', attributes, style, removeContent} = renderConfig;
     const attrString = stringifyAttrs({
       ...attributes,
       style: style && styleToCSS(style),
     });
+    
+    if (removeContent) {
+      return `<${element}${attrString}></${element}>`;
+    }
 
     return `<${element}${attrString}>${content}</${element}>`;
   }
